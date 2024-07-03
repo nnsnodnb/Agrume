@@ -4,6 +4,7 @@
 
 import Foundation
 
+@MainActor
 public protocol AgrumeDelegate: AnyObject {
 
   /// Initial scale of Presenting image.
