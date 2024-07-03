@@ -221,6 +221,7 @@ public final class Agrume: UIViewController {
     self.overlayView = overlayView
     self.dataSource = dataSource ?? self
     
+    modalPresentationStyle = .custom
     modalTransitionStyle = .crossDissolve
     modalPresentationCapturesStatusBarAppearance = true
   }
