@@ -12,9 +12,10 @@ public final class Agrume: UIViewController {
     case dismissAlways
     case zoomOut
     case toggleOverlayVisibility
+    case none
   }
 
-  private var images: [AgrumeImage]!
+  private var images: [AgrumeImage] = []
   private let startIndex: Int
   private let dismissal: Dismissal
   private let enableLiveText: Bool
@@ -29,6 +30,8 @@ public final class Agrume: UIViewController {
   public private(set) var currentIndex: Int
   
   public typealias DownloadCompletion = (_ image: UIImage?) -> Void
+
+  public weak var delegate: AgrumeDelegate?
 
   /// Optional closure to call when user long pressed on an image
   public var onLongPress: ((UIImage?, UIViewController) -> Void)?
@@ -218,7 +221,7 @@ public final class Agrume: UIViewController {
     self.overlayView = overlayView
     self.dataSource = dataSource ?? self
     
-    modalPresentationStyle = .custom
+    modalTransitionStyle = .crossDissolve
     modalPresentationCapturesStatusBarAppearance = true
   }
 
@@ -403,7 +406,7 @@ public final class Agrume: UIViewController {
     DispatchQueue.main.async {
       self.blurContainerView.alpha = 1
       self.containerView.alpha = 0
-      let scale: CGFloat = .initialScaleToExpandFrom
+      let scale: CGFloat = self.delegate?.presentingInitialScale ?? .initialScaleToExpandFrom
 
       viewController.present(self, animated: false) {
         // Transform the container view, not the collection view to prevent an RTL display bug

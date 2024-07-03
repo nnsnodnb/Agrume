@@ -259,6 +259,8 @@ extension AgrumeCell: UIGestureRecognizerDelegate {
       zoom(to: .zero, scale: 1)
     case .toggleOverlayVisibility:
       delegate?.toggleOverlayVisibility()
+    case .none:
+      return
     }
   }
 
